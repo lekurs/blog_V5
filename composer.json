@@ -1,0 +1,16 @@
+{
+    "name": "bidule/blog_v5",
+    "require": {
+    },
+    "autoload" :{
+        "psr-4" :
+        {
+          "app\\" : "app/",
+            "src\\" : "src/",
+            "lib\\" : "lib/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.4"
+    }
+}
