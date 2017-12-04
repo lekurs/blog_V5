@@ -9,66 +9,88 @@
 namespace app\classes;
 
 
-class FormSuscribe
+use app\lib\FormHelper;
+
+class FormSuscribe extends FormHelper
 {
-    private $password;
-    private $email;
-    private $login;
+    private $formName;
+    public $icon;
 
-    public function __construct(array $datas)
+    /**
+     * FormSuscribe constructor.
+     * @param $formName
+     */
+
+    public function __construct($formName)
     {
-        $this->hydrate($datas);
+        $this->formName = $formName;
     }
 
-    public function hydrate(array $datas)
-    {
-        foreach ($datas as $key => $data)
-        {
-            $method = 'set'.ucfirst($key);
+    /**
+     * @return string
+     */
 
-            if(method_exists($this, $method))
-            {
-                $this->$method($data);
-            }
-        }
+    public function getFormName()
+    {
+        return 'Form' . $this->formName;
     }
 
-    public function getEmail()
+    /**
+     * @return string Renvoie le formulaire ainsi que l'action pour le formulaire d'inscription
+     */
+
+    public function formStart()
     {
-        return $this->email;
+        return $this->form_open('post', 'index.php?action=register', 'suscribe-form');
     }
 
-    public function getPassword()
+    /**
+     * @return string : renvoie la balise de fermeture du formulaire
+     */
+
+    public function formClose()
     {
-        return $this->password;
+        return $this->form_close();
     }
 
-    public function getLogin()
+    /**
+     * @return string : input email pour formulaire d'inscription
+     */
+
+    public function inputEmailSuscribe()
     {
-        return $this->login;
+        return '<p class="logo-email"><i class="fa fa-envelope" id="envelope-suscribe"></i>
+                                <span class="close-form"  id="close"><i class="fa fa-times-circle fa-2x"></i></span>
+                                <span class="check_ok"></span>
+                                <span class="regex-mail"></span>
+                                <span class="regex-mail-valide"></span>'.$this->input_email('email_suscribe', 'email@email.com', '', 'email_suscribe', 'required', false).'</p>';
     }
 
-    public function setEmail($email)
+    /**
+     * @return string : input text pour le formulaire d'inscription
+     */
+
+    public function inputTxtSuscribe()
     {
-        if(is_string($email))
-        {
-            $this->email = $email;
-        }
+        return '<p class="logo-login"><i class="fa fa-user"></i> ' .$this->input_txt('login', 'Pseudonyme', '', 'login', 'required', false).'</p>';
     }
 
-    public function setPassword($password)
+    /**
+     * @return string : input password pour le formulaire d'inscription
+     */
+
+    public function inputPassSuscribe()
     {
-        if(is_string($password))
-        {
-            $this->password = $password;
-        }
+        return ' <p class="logo-password"><i class="fa fa-lock"></i><span class="regex-password"></span>'. $this->input_pass('password', 'password', '', 'password_suscribe', 'required', false).'</p>';
     }
 
-    public function setLogin($login)
+    /**
+     * @return string : bouton d'envoie du formulaire d'inscription
+     */
+
+    public function inputSubmitSuscribe()
     {
-        if(is_string($login))
-        {
-            $this->login = $login;
-        }
+        return '<p id="submit-suscribe-ko"><span class="check_ko"></span></p>
+                            <p id="submit-suscribe-ok">' .$this->input_submit('submit', '', '', 'submit_suscribe_btn', 'disabled', false).'<i class="fa fa-arrow-right"></i></p>';
     }
 }

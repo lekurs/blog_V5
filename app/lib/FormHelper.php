@@ -14,6 +14,7 @@ class FormHelper
 
     private $options;
     public $tag = 'p';
+    public $icon;
 
 
     /**
@@ -36,6 +37,11 @@ class FormHelper
         return '</form>';
     }
 
+    public function setIcon($class_name)
+    {
+        return '<i class="' . $class_name . '"></i>';
+    }
+
     /**
      * @function input
      * @param $name
@@ -43,12 +49,44 @@ class FormHelper
      * @param $class => optionnel, si besoin d'une classe
      *  @param $id => optionnel
      * @param $attr => attributs du l'input
+     * @param $tag => false = pas de tag
      * @return string => affiche l'input
      */
 
-    public function input_pass($name, $placeholder, $class = null, $id = null, $attr = null)
+    public function input_pass($name, $placeholder, $class = null, $id = null, $attr = null, $tag)
     {
-        return $this->tags('<input type="password" name="' . $name . '" placeholder ="' . $placeholder . '" class="'. $class .'" id="' . $id . '" '.$attr.' />');
+        if($tag === false)
+        {
+            return '<input type="password" name="' . $name . '" placeholder ="' . $placeholder . '" class="'. $class .'" id="' . $id . '" '.$attr.' />';
+        }
+        else
+        {
+            return $this->tags('<input type="password" name="' . $name . '" placeholder ="' . $placeholder . '" class="'. $class .'" id="' . $id . '" '.$attr.' />');
+        }
+    }
+
+
+    /**
+     * @function input
+     * @param $name
+     * @param $placeholder
+     * @param $class => optionnel, si besoin d'une classe
+     *  @param $id => optionnel
+     * @param $attr => attributs du l'input
+     * @param $tag => pas de tag
+     * @return string => affiche l'input
+     */
+
+    public function input_email($name, $placeholder, $class = null, $id = null, $attr = null, $tag)
+    {
+        if($tag === false)
+        {
+            return '<input type="email" name="' . $name . '" placeholder ="' . $placeholder . '" class="'. $class .'" id="' . $id . '" '.$attr.' />';
+        }
+        else
+        {
+            return $this->tags('<input type="email" name="' . $name . '" placeholder ="' . $placeholder . '" class="'. $class .'" id="' . $id . '" '.$attr.' />');
+        }
     }
 
     /**
@@ -61,23 +99,12 @@ class FormHelper
      * @return string => affiche l'input
      */
 
-    public function input_email($name, $placeholder, $class = null, $id = null, $attr = null)
+    public function input_txt($name, $placeholder, $class = null, $id = null, $attr = null, $tag)
     {
-        return $this->tags('<input type="email" name="' . $name . '" placeholder ="' . $placeholder . '" class="'. $class .'" id="' . $id . '" '.$attr.' />');
-    }
-
-    /**
-     * @function input
-     * @param $name
-     * @param $placeholder
-     * @param $class => optionnel, si besoin d'une classe
-     *  @param $id => optionnel
-     * @param $attr => attributs du l'input
-     * @return string => affiche l'input
-     */
-
-    public function input_txt($name, $placeholder, $class = null, $id = null, $attr = null)
-    {
+        if($tag === false)
+        {
+            return '<input type="text" name="' . $name . '" placeholder ="' . $placeholder . '" class="'. $class .'" id="' . $id . '" '.$attr.' />';
+        }
         return $this->tags('<input type="text" name="' . $name . '" placeholder ="' . $placeholder . '" class="'. $class .'" id="' . $id . '" '.$attr.' />');
     }
 
@@ -105,7 +132,7 @@ class FormHelper
      * @return string
      */
 
-    public function input_box($name, $id = null, $class = null, $tag = false, $attr = null)
+    public function input_box($name, $id = null, $class = null, $attr = null, $tag = false)
     {
         if($tag === false)
         {
@@ -126,7 +153,7 @@ class FormHelper
      * @return string
      */
 
-    public function input_radio($name, $id = null, $class = null, $tag = false, $attr = null)
+    public function input_radio($name, $id = null, $class = null, $attr = null, $tag = false)
     {
         if($tag === false)
         {
@@ -183,8 +210,12 @@ class FormHelper
      * @return string
      */
 
-    public function input_submit($name, $value, $class = null, $id = null, $attr = null)
+    public function input_submit($name, $value, $class = null, $id = null, $attr = null, $tag)
     {
+        if($tag === false)
+        {
+            return "<input type=\"submit\" name=\"$name\" value=\" $value\" class=\"$class\" id=\"$id\" ".$attr." />";
+        }
         return $this->tags("<input type=\"submit\" name=\"$name\" value=\" $value\" class=\"$class\" ".$attr." />");
     }
 

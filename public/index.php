@@ -6,12 +6,16 @@
  * Time: 11:37
  */
 require '../vendor/autoload.php';
-$test = new \src\managers\ChaptersManager();
-var_dump($test->getChapters());
 
+define ('ROOT', dirname(__DIR__));
 
+//$router = new \app\classes\Router();
+//
+////$router->getUri('/src/controllers/index');
+//var_dump($router->handleRequest($_SERVER['REQUEST_URI']));
+//
+//$router->handleRequest($_SERVER['REQUEST_URI']);
 
-$testForm = \app\classes\FormFactory::getForm('Login');
+$test = new \src\controllers\ChaptersController();
 
-$testForm->setEmail('test');
-var_dump($testForm);
+$test->index();

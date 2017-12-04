@@ -6,10 +6,11 @@
  * Time: 10:41
  */
 
-require '../../vendor/autoload.php';
+require '../vendor/autoload.php';
 $allReports = new \src\managers\CommentsManager();
-
-$form = new \app\lib\FormHelper();
+use app\classes\FormFactory;
+$form = FormFactory::createForm('login');
+$formSuscribe = FormFactory::createForm('suscribe');
 
 ?>
 
@@ -17,10 +18,9 @@ $form = new \app\lib\FormHelper();
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link href="assets/css/bootstap.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
+    <link href="../public/css/style.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,700,900" rel="stylesheet">
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../public/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript" src ='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
     <script type="text/javascript">
         tinymce.init({
@@ -79,7 +79,7 @@ $form = new \app\lib\FormHelper();
     <div class="container">
         <header>
             <div class="head-contain">
-                <h1 id="image-title"><a href="index.php"><img src="assets/images/header_image_2.jpg"></a></h1>
+                <h1 id="image-title"><a href="index.php"><img src="../public/images/header_image_2.jpg"></a></h1>
                 <div class="connexion-container">
                     <?php
                     if(isset($_SESSION['login']))
@@ -114,36 +114,25 @@ $form = new \app\lib\FormHelper();
                     }
                     ?>
                 </div>
-                <div id="login-form">
-                    <?= $form->form_open('post', 'index.php?action=login', 'login-form'); ?>
-                        <div id="form">
-                            <p class="logo-login"><i class="fa fa-envelope" id="envelope-login"></i><?= $form->input_email('email', 'Email', 'Email', 'email','');?><span class="close-form"  id="close"><i class="fa fa-times-circle fa-2x"></i></span></p>
-                            <p class="logo-password"><i class="fa fa-lock"></i><?= $form->input_pass('password', 'password', '', 'password', 'password'); ?></p>
-                            <p id="submit-suscribe"><?= $form->input_submit('submit_log', '', '', 'submit'); ?><i class="fa fa-arrow-right"></i></p>
+                <div id="login-form-container">
+                    <?= $form->formStart(); ?>
+                        <div class="form">
+                            <?= $form->inputLogin(); ?>
+                            <?= $form->inputPassLogin(); ?>
+                            <?= $form->inputSubmit(); ?>
                             <p id="password_forget"><a href="index.php?action=forget">Mot de passe oublié ?</a></p>
                         </div>
-                    <?= $form->form_close();?>
+                    <?= $form->formClose();?>
                 </div>
                 <div id="suscribe-formulaire">
-                    <?= $form->form_open('post', 'index.php?action=register', 'suscribe-form'); ?>
-                        <div id="form">
-                            <p class="logo-email"><i class="fa fa-envelope" id="envelope-suscribe"></i>
-                                <span class="close-form"  id="close"><i class="fa fa-times-circle fa-2x"></i></span>
-                                <span class="check_ok"></span>
-                                <span class="regex-mail"></span>
-                                <span class="regex-mail-valide"></span>
-
-                                <?= $form->input_email('email_suscribe', 'email@email.com', '', 'email_suscribe', 'required'); ?>
-                            </p>
-                            <p class="logo-password"><i class="fa fa-lock"></i>
-                                <span class="regex-password"></span>
-                                <?= $form->input_pass('password', 'password', '', 'password_suscribe', 'required');?>
-                            </p>
-                            <p class="logo-login"><i class="fa fa-user"></i> <?= $form->input_txt('login', 'Pseudonyme', '', 'login', 'required'); ?></p>
-                            <p id="submit-suscribe-ko"><span class="check_ko"></span></p>
-                            <p id="submit-suscribe-ok"><?= $form->input_submit('submit', '', '', 'submit_suscribe_btn', 'disabled'); ?><i class="fa fa-arrow-right"></i></p>
+                    <?= $formSuscribe->formStart(); ?>
+                        <div class="form">
+                            <?= $formSuscribe->inputEmailSuscribe(); ?>
+                            <?= $formSuscribe->inputPassSuscribe();?>
+                            <?= $formSuscribe->inputTxtSuscribe(); ?></p>
+                            <?= $formSuscribe->inputSubmitSuscribe(); ?>
                         </div>
-                    <?= $form->form_close(); ?>
+                    <?= $formSuscribe->formClose(); ?>
                 </div>
                 <p class="name">jean forteroche</p>
         </header>
@@ -178,14 +167,14 @@ $form = new \app\lib\FormHelper();
             </div>
         </footer>
     </div>
-<script src="assets/js/jquery-min.js"></script>
-<script src="assets/js/suscribe.js"></script>
-<script src="assets/js/login.js"></script>
-<script src="assets/js/check_login.js"></script>
-<script src="assets/js/inscription.js"></script>
-<script src="assets/js/reportAjax.js"></script>
-<script src="assets/js/admin.js"></script>
-<script src="assets/js/forget_password.js"></script>
-<script src="assets/js/update-user.js"></script>
+<script src="../public/js/jquery-min.js"></script>
+<script src="../public/js/suscribe.js"></script>
+<script src="../public/js/login.js"></script>
+<script src="../public/js/check_login.js"></script>
+<script src="../public/js/inscription.js"></script>
+<script src="../public/js/reportAjax.js"></script>
+<script src="../public/js/admin.js"></script>
+<script src="../public/js/forget_password.js"></script>
+<script src="../public/js/update-user.js"></script>
 </body>
 </html>

@@ -9,35 +9,76 @@
 namespace app\classes;
 
 
-class FormLogin
+use app\lib\FormHelper;
+
+class FormLogin extends FormHelper
 {
-    private $password;
-    private $email;
+    /**
+     * @var formName => Nom du Formulaire
+     */
+    private $formName;
+    public $icon;
 
-
-    public function getEmail()
+    /**
+     * FormLogin constructor.
+     * @param $formName
+     */
+    public function __construct($formName)
     {
-        return $this->email;
+        $this->formName = $formName;
     }
 
-    public function getPassword()
+    /**
+     * @return string :
+     */
+
+    public function getFormName()
     {
-        return $this->password;
+        return 'Form' . $this->formName;
     }
 
-    public function setEmail($email)
+    /**
+     * @return string : Renvoie le formulaire
+     */
+
+    public function formStart()
     {
-        if(is_string($email))
-        {
-            $this->email = $email;
-        }
+        return $this->form_open('post', 'index.php?action=login', 'login-form');
     }
 
-    public function setPassword($password)
+    /**
+     * @return string fermeture balise formulaire
+     */
+
+    public function formClose()
     {
-        if(is_string($password))
-        {
-            $this->password = $password;
-        }
+        return $this->form_close();
+    }
+
+    /**
+     * @return string : renvoie l'input email pour le formulaire de connection
+     */
+
+    public function inputLogin()
+    {
+        return '<p class="logo-login"><i class="fa fa-envelope" id="envelope-login"></i>' .$this->input_email('email', 'Email', 'Email', 'email', '', false).'<span class="close-form"  id="close"><i class="fa fa-times-circle fa-2x"></i></span></p>';
+    }
+
+    /**
+     * @return string : renvoie l'input password pour le formulaire de connection
+     */
+
+    public function inputPassLogin()
+    {
+        return '<p class="logo-password"><i class="fa fa-lock"></i>'. $this->input_pass('password', 'password', '', 'password', '', false).'</p>';
+    }
+
+    /**
+     * @return string : renvoie le bouton de connection pour le formulaire de connection
+     */
+
+    public function inputSubmit()
+    {
+        return '<p id="submit-suscribe">' .$this->input_submit('submit_log', '', '', 'submit', '', false).'<i class="fa fa-arrow-right"></i></p>';
     }
 }

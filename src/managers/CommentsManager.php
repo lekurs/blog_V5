@@ -34,6 +34,20 @@ class CommentsManager extends Database
         return $this->data;
     }
 
+    /**
+     * @param $chapter
+     * @return int
+     */
+
+    public function nb_comment($chapter)
+    {
+        $db = $this->Connect();
+        $req= $db->prepare('SELECT id_comments AS idComments, comments AS comments, report AS report, user_id AS userId, chapter_id AS chapterId FROM comments WHERE chapter_id = ' . $chapter);
+        $req->execute(array($chapter));
+
+        return $req->rowCount();
+    }
+
     private function commentsBuilder(array $data)
     {
         $model = new Comments();

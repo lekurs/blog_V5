@@ -20,7 +20,7 @@ class ChaptersManager extends Database
 
     public function getChapters()
     {
-        $db = parent::Connect();
+        $db = $this->Connect();
 
         $req = $db->prepare('SELECT id_chapter as idChapter, title, chapter, DATE_FORMAT(create_date, \'%d/%M/%Y\') AS create_date, online FROM chapter where online = 1 ORDER BY id_chapter');
         $req->execute();

@@ -11,12 +11,13 @@ namespace app\classes;
 
 class FormFactory
 {
-    public static function getForm($name)
+    /**
+     * @param $formName => Nom du formulaire
+     * @return mixed => instance de formulaire
+     */
+    public static function createForm($formName)
     {
-        $name = ucfirst($name);
-        $class_name = "\\app\\classes\\Form" . $name;
-        return new $class_name;
+        $class_name = '\\app\\classes\\Form'.ucfirst($formName);
+        return new $class_name($formName);
     }
-
-
 }
